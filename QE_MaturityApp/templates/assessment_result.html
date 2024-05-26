@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assessment Result</title>
+</head>
+<body>
+    <h1>Assessment Result for {{ assessment.project_name }}</h1>
+    <p>Number of Test Cases: {{ assessment.num_test_cases }}</p>
+    <p>Number of Resources: {{ assessment.num_resources }}</p>
+    <p>Manual Testing Cost: ${{ assessment.manual_testing_cost }}</p>
+    <p>Automated Testing Cost: ${{ assessment.automated_testing_cost }}</p>
+    <a href="{% url 'test_assessment' %}">Back to Form</a>
+</body>
+</html>
