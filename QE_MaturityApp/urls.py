@@ -1,9 +1,9 @@
 from django.urls import path
-from QE_MaturityApp import views
-from .views import test_assessment_view, assessment_result_view
+from . import views
 
 urlpatterns = [
-    path("", views.home, name="home"),
-    path('assessment/', views.test_assessment_view, name='test_assessment'),
-    path('result/<int:pk>/', views.assessment_result_view, name='assessment_result'),
+    path('', views.home, name='home'),  # Home page with the assessment form
+    path('baseline/', views.baseline, name='baseline'),
+    #path('result/<int:assessment_id>/', views.result, name='result'),  # Result page
+    #path('result/<int:assessment_id>/<int:total_cost>/', views.result, name='result'),  # Result page with total cost
 ]

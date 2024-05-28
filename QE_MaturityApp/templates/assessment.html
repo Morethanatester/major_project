@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Baseline Assessment</h1>
+
+    <form method="post" action="{% url 'baseline' %}" class="mx-auto" style="max-width: 600px;">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-group row">
+            <label for="id_total_resource_permanent" class="col-sm-6 col-form-label">Total Permanent Resources:</label>
+            <div class="col-sm-6">
+                {{ form.total_resource_permanent }}
+                {% if form.total_resource_permanent.errors %}
+                    <div class="error">{{ form.total_resource_permanent.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="id_total_resource_contractor" class="col-sm-6 col-form-label">Total Contractor Resources:</label>
+            <div class="col-sm-6">
+                {{ form.total_resource_contractor }}
+                {% if form.total_resource_contractor.errors %}
+                    <div class="error">{{ form.total_resource_contractor.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="id_total_test_cases" class="col-sm-6 col-form-label">Total Test Cases:</label>
+            <div class="col-sm-6">
+                {{ form.total_test_cases }}
+                {% if form.total_test_cases.errors %}
+                    <div class="error">{{ form.total_test_cases.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="id_total_execution_time_days" class="col-sm-6 col-form-label">Total Execution Time (Days):</label>
+            <div class="col-sm-6">
+                {{ form.total_execution_time_days }}
+                {% if form.total_execution_time_days.errors %}
+                    <div class="error">{{ form.total_execution_time_days.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="Submit" class="btn btn-secondary">
+        </div>
+    </form>
+
+    {% if total_cost is not None %}
+        <h2 class="text-center mt-5">Results</h2>
+        <div class="d-flex justify-content-center">
+            <div class="card bg-light mb-3 mx-2" style="width: 18rem;">
+                <div class="card-header">Total Cost</div>
+                <div class="card-body">
+                    <h5 class="card-title">£{{ total_cost }}</h5>
+                </div>
+            </div>
+            <div class="card bg-light mb-3 mx-2" style="width: 18rem;">
+                <div class="card-header">Cost Per Test</div>
+                <div class="card-body">
+                    <h5 class="card-title">£{{ cost_per_test }}</h5>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
