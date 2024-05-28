@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),  # Home page with the assessment form
+    path('QEMaturity/', views.QEMaturity, name='QEMaturity'),
     path('baseline/', views.baseline, name='baseline'),
     path('maturity/', views.maturity, name='maturity'),
     path('maturity_assessment/', views.maturity_assessment, name='maturity_assessment'),

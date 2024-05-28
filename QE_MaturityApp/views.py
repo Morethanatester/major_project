@@ -5,6 +5,9 @@ from .models import Assessment
 def home(request):
     return render(request, "home.html", {})
 
+def QEMaturity(request):
+    return render(request, "QEMaturity.html", {})
+
 def baseline(request):
     total_cost = None
     cost_per_test = None

@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <h1>Quality Assessment</h1>
+
+    
+    <style>
+    table {
+        max-width: 800px; /* Set a maximum width for the table */
+        margin: 0 auto; /* Center the table */
+        width: 100%; /* Make the table take up the full width of its container */
+        border-collapse: collapse; /* Collapse borders so they don't double up */
+        table-layout: auto; /* Allow the table to auto size based on content */
+    }
+
+    th, td {
+        border: 1px solid #000; /* Add a border to the cells */
+        text-align: left; /* Align the text to the left */
+        padding: 8px; /* Add some padding around the cell content */
+    }
+
+    th {
+        background-color: #808080;
+        color: white;
+    }
+
+    /* Responsive styling for smaller screens */
+    @media screen and (max-width: 600px) {
+        table, th, td {
+            width: 100%;
+            display: block;
+        }
+
+        th, td {
+            border: none;
+            border-bottom: 1px solid #000;
+            position: relative;
+            padding-left: 50%;
+        }
+
+        th::before, td::before {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+
+        th::before {
+            content: "";
+        }
+    }
+    </style>
+    
+
+    <table>
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>No Maturity</th>
+                <th>Low maturity</th>
+                <th>Good Maturity</th>
+                <th>High Maturity/Continuous Maturity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Do you follow an integrated SE/QE development approach?</td>
+                <td>SE & QE Not aligned</td>
+                <td>Low SE/QE collaboration</td>
+                <td>High SE & QE collaboration</td>
+                <td>Integrated Dev/QA teams</td>
+
+            </tr>
+            <tr>
+                <td>Do all Quality Engineers write code for interviews?</td>
+                <td>No code written and coding not considered part of interview</td>
+                <td>Coding skills considered as part of interview</td>
+                <td>Coding skills evidence key as part of interview</td>
+                <td>Code written in interviews or clear evidence of coding skills provided</td>
+            </tr>
+            <tr>
+                <td>Do your Quality Engineers have training opportunities and budget?</td>
+                <td>No opportunities or budget</td>
+                <td>Time & budget made available on request</td>
+                <td>Time and Budget available</td>
+                <td>Team has time and budget with clear skills matrix, whilst also having time to experiment and learn new things</td>
+            </tr>
+            <tr>
+                <td>Do you have a Quality Engineering Principles in place (MVE)?</td>
+                <td>No QE/MVE principles in place</td>
+                <td>Legacy QE principles in place</td>
+                <td>QE principles in place that reflect Modern engineering</td>
+                <td>Mature QE principles in place and constantly reviewed / adjusted where necessary</td>
+            </tr>
+            <tr>
+                <td>Do you continue to follow your principles even when you have a tight deadline?</td>
+                <td>Principles not followed if deadlines are tight</td>
+                <td>Some principles dropped if deadlines tight</td>
+                <td>Based on Risk we may veer away from low risk principles</td>
+                <td>We stick to our principles always</td>
+            </tr>
+            <tr>
+                <td>Are new tests automated from Unit to Release?</td>
+                <td>No tests automated </td>
+                <td>Some (Unit/component etc)</td>
+                <td>Most with some gaps (e.g. NFT)</td>
+                <td>All tests are Automated with reuse across test types </td>
+            </tr>
+            <tr>
+                <td>Are E2E tests Embedded as part of your CI/CD?</td>
+                <td>No E2E test embedded in CI/CD</td>
+                <td>Automation in place for most E2E tests however not integrated in CI/CD</td>
+                <td>Some E2E Tests automated and embedded in CI/CD</td>
+                <td>All E2E tests integrated as part of CI/CD –reuse of test assets of high importance</td>
+            </tr>
+            <tr>
+                <td>Are non-functional test run as part of CI/CD?</td>
+                <td>No NFT run as part of CI/CD</td>
+                <td>Automation in place for most NFT however not integrated in CI/CD</td>
+                <td>Some NFTs automated and embedded in CI/CD</td>
+                <td>All NFT tests integrated as part of CI/CD –reuse of test assets of high importance</td>
+            </tr>
+            <tr>
+                <td>Are all key workflows automated?</td>
+                <td>No Key workflows automated</td>
+                <td>Some key workflows automated</td>
+                <td>High level of Key workflows automated</td>
+                <td>All Key workflows automated </td>
+            </tr>
+            <tr>
+                <td>Is your Test Data generation automated?</td>
+                <td>No Test Data generation Automated</td>
+                <td>Majority generated manually but some automation in place</td>
+                <td>High levels of automated test data generation</td>
+                <td>All Test data generated through automation</td>
+            </tr>
+            <tr>
+                <td>Do you have the best tools available to support?</td>
+                <td>Best Tools not available</td>
+                <td>Some tools in place with no retro/ review process across wider group tool usage</td>
+                <td>Good tools in place</td>
+                <td>Modern tools available for POC and usage quickly and efficiently </td>
+            </tr>
+            <tr>
+                <td>Are your Environment builds automated?</td>
+                <td>No Env Automation</td>
+                <td>Some Env Automation (e.g. Platform container deployments automated)</td>
+                <td>High levels of Env build automation with exceptions</td>
+                <td>All Env builds are automated</td>
+            </tr>
+            <tr>
+                <td>Do you monitor Env activity and run synthetic health checks in Env?</td>
+                <td>No Env Health Checks</td>
+                <td>Manual health checks in place</td>
+                <td>Automated health checks in place across most Env</td>
+                <td>Automated real time Env Health checks in place across all Env</td>
+            </tr>
+            <tr>
+                <td>Do you have Automated Test Reporting and MI?</td>
+                <td>No Automated Reporting or MI</td>
+                <td>Some automated MI in place but a lot of manual work required</td>
+                <td>Automated reporting in place and run adhoc where required</td>
+                <td>Real time Test Reporting and MI in place across all Test</td>
+            </tr>
+            <!-- Add more rows for the other questions... -->
+        </tbody>
+    </table>
+
+{% endblock %}

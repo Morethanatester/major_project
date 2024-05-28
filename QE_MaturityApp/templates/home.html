@@ -2,11 +2,73 @@
 
 {% block content %}
     <!-- Page content-->
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to Your Test Maturity Self Assessment Application</h1>
+    <p class="lead">Reduce Cost, Reduce Time and Increase Quality</p>
+    <hr class="my-4">
+    <p>Learn how to implement modern test practices and calculate detailed costs associated with testing.</p>
+
+    <!-- Line break -->
+    <hr>
+
+
+<!-- Card Sections -->
+<section class="card-section">
     <div class="container">
-        <div class="text-center mt-5">
-            <h1>A Bootstrap 5 Starter Template</h1>
-            <p class="lead">A complete project boilerplate built with Bootstrap</p>
-            <p>Bootstrap v5.2.3</p>
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Section One</h5>
+              <p class="card-text">This is the first section of your home page. You can add content here to introduce your website or showcase your products/services.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
         </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"> QE Maturity Detail</h5>
+              <p class="card-text">This is the second section of your home page. You can add more content here to engage your visitors and highlight key features.</p>
+              <a href="{% url 'QEMaturity' %}" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Section Three</h5>
+              <p class="card-text">This is the third section of your home page. You can use this space to provide additional information or promote special offers.</p>
+              <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- Modal -->
+<div class="modal fade" id="sectionOneModal" tabindex="-1" aria-labelledby="sectionOneModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="sectionOneModalLabel">Detailed Content for Section One</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Insert detailed content here -->
+          <p>This is where you can add more detailed information about Section One.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+
+
+  
 {% endblock %}
