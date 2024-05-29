@@ -7,6 +7,9 @@ urlpatterns = [
     path('baseline/', views.baseline, name='baseline'),
     path('maturity/', views.maturity, name='maturity'),
     path('maturity_assessment/', views.maturity_assessment, name='maturity_assessment'),
+
+    path('blog1/', views.blog1, name='blog1'),
+    path('blog2/', views.blog2, name='blog2'),
     #path('result/<int:assessment_id>/', views.result, name='result'),  # Result page
     #path('result/<int:assessment_id>/<int:total_cost>/', views.result, name='result'),  # Result page with total cost
 ]

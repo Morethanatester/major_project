@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<!-- Page content-->
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to Your Test Maturity Self Assessment Application</h1>
+    <p class="lead">Reduce Cost, Reduce Time and Increase Quality</p>
+    <hr class="my-4">
+    <p>Learn how to implement modern test practices and calculate detailed costs associated with testing.</p>
+
+    <!-- Line break -->
+    <hr>
 <div class="container mt-4">
     <h1 class="text-center">Baseline Assessment Results</h1>
 
@@ -34,9 +44,13 @@
 
     <!-- Line break -->
     <hr>
+    <p class="text-center">ADD OVERALL MATURITY LEVEL ONCE COMPLETED</p>
+
+    <p class="text-center">The following questions will help you assess your maturity in Quality Engineering.</p>
+
 
     <!-- Maturity questions -->
-    <h2 class="mt-5">Maturity Assessment Questions</h2>
+    <h2 class="text-center">Maturity Assessment Questions</h2>
     <form method="POST" action="{% url 'maturity_assessment' %}">
         {% csrf_token %}
         <table class="table">
@@ -153,6 +167,12 @@
         </table>
         <div class="text-center">
             <button type="submit" class="btn btn-secondary">Submit</button>
+        </div>
+        <p></p>
+
+        <div class="back-button">
+            <a href="#" onclick="history.back()" class="btn btn-secondary">Back</a>
+            <a href="{% url 'QEMaturity' %}" class="btn btn-secondary">More Info</a>
         </div>
     </form>
 </div>

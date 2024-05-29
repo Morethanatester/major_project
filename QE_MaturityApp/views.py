@@ -104,8 +104,8 @@ def calculate_new_scores(request, form_data):
     original_total_cost = request.session.get('total_cost', 0)
     original_cost_per_test = request.session.get('cost_per_test', 0)
     
-    new_total_cost = original_total_cost * cost_reduction_percentage
-    new_cost_per_test = original_cost_per_test * cost_reduction_percentage
+    new_total_cost = round(original_total_cost * cost_reduction_percentage, 2)
+    new_cost_per_test = round(original_cost_per_test * cost_reduction_percentage, 2)
     
     # For debugging purposes, print the new scores
     print("New Total Cost:", new_total_cost)
@@ -116,3 +116,10 @@ def maturity(request):
     print('maturity function called')
     print('Request method:', request.method)
     return render(request, "maturity.html", {})
+
+
+def blog1(request):
+    return render(request, "blog1.html", {})
+
+def blog2(request):
+    return render(request, "blog2.html", {})

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Page content-->
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to Your Test Maturity Self Assessment Application</h1>
+    <p class="lead">Reduce Cost, Reduce Time and Increase Quality</p>
+    <hr class="my-4">
+    <p>Learn how to implement modern test practices and calculate detailed costs associated with testing.</p>
+
+    <!-- Line break -->
+    <hr>
+
+    <!-- Introduction to Test Automation -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center">Introduction to Test Automation</h2>
+                    <p class="text-center">
+                        Test automation is a key practice in modern software development, helping to reduce manual effort, increase test coverage, and ensure the reliability of your applications. This section introduces some popular test automation frameworks and guides you on how to implement them.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Card Sections -->
+    <section class="card-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Selenium</h5>
+                            <p class="card-text">Selenium is a powerful tool for controlling a web browser through the program. It's functional for all browsers, works on all major OS, and its scripts can be written in various programming languages like Java, Python, etc.</p>
+                            <a href="#" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Playwright</h5>
+                            <p class="card-text">Playwright is a Node.js library to automate Chromium, Firefox, and WebKit with a single API. It is built to enable cross-browser web automation that is ever-green, capable, reliable, and fast.</p>
+                            <a href="#" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Cypress</h5>
+                            <p class="card-text">Cypress is a JavaScript-based end-to-end testing framework built for the modern web. It can handle modern JavaScript frameworks like React, Angular, and Vue seamlessly.</p>
+                            <a href="#" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">JUnit</h5>
+                            <p class="card-text">JUnit is a simple framework to write repeatable tests. It is an instance of the xUnit architecture for unit testing frameworks. JUnit is used primarily for unit testing Java applications.</p>
+                            <a href="#" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">TestNG</h5>
+                            <p class="card-text">TestNG is a testing framework inspired by JUnit and NUnit but introducing some new functionalities that make it more powerful and easier to use, such as annotations, running test suites, and parallel execution.</p>
+                            <a href="#" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Robot Framework</h5>
+                            <p class="card-text">Robot Framework is a generic open-source automation framework. It can be used for test automation and robotic process automation (RPA). It has easy-to-use tabular test data syntax and supports keyword-driven testing.</p>
+                            <a href="#" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
