@@ -100,6 +100,8 @@ def calculate_new_scores(request, form_data):
     # Calculate total maturity level by summing up the answers to all 14 questions
     total_maturity_level = sum(int(form_data.get(f'question_{i}', 0)) for i in range(1, 15))
 
+    print(f"Total Maturity Level: {total_maturity_level}")
+
     # Map the total maturity level to a cost reduction percentage and a maturity level description
     for range_, (percentage, maturity_level) in COST_REDUCTION_PERCENTAGES.items():
         if total_maturity_level in range_:
@@ -109,9 +111,13 @@ def calculate_new_scores(request, form_data):
         cost_reduction_percentage = 1.0  # Default to 100% if total_maturity_level is not in any range
         maturity_level = "No Maturity"
 
+    print(f"Cost Reduction Percentage: {cost_reduction_percentage}, Maturity Level: {maturity_level}")
+
     # Assuming original total cost and cost per test are retrieved from session
     original_total_cost = request.session.get('total_cost', 0)
     original_cost_per_test = request.session.get('cost_per_test', 0)
+    
+    print(f"Original Total Cost: {original_total_cost}, Original Cost Per Test: {original_cost_per_test}")
     
     new_total_cost = round(original_total_cost * cost_reduction_percentage, 2)
     new_cost_per_test = round(original_cost_per_test * cost_reduction_percentage, 2)
@@ -124,7 +130,11 @@ def calculate_new_scores(request, form_data):
     total_execution_time_days = request.session.get('total_execution_time_days', 0)
     time_saved = total_execution_time_days * (1 - cost_reduction_percentage) * num_executions
     
+    print(f"New Total Cost: {new_total_cost}, New Cost Per Test: {new_cost_per_test}")
+    print(f"Cost Savings: {cost_savings}, Time Saved: {time_saved}, Total Maturity Level: {maturity_level}")
+    
     return new_total_cost, new_cost_per_test, cost_savings, time_saved, maturity_level
+
 
 def maturity(request):
     print('maturity function called')

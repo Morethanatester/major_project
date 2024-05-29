@@ -2,6 +2,8 @@
 
 {% block content %}
 
+
+
 <!-- Page content-->
 <div class="jumbotron text-center">
     <h1 class="display-4">Welcome to Your Test Maturity Self Assessment Application</h1>
@@ -19,7 +21,8 @@
         <div class="row">
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
-                    <img src="path/to/image1.jpg" class="card-img-top" alt="Article Image 1">
+                    {% load static %}
+                    <img src="{% static 'assets/maturity.jpg' %}" class="card-img-top" alt="Article Image 1">
                     <div class="card-body">
                         <h5 class="card-title">Understanding Test Maturity Levels</h5>
                         <p class="card-text">Explore the different levels of test maturity and how you can achieve higher quality and efficiency in your testing processes.</p>
@@ -29,17 +32,18 @@
             </div>
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
-                    <img src="path/to/image2.jpg" class="card-img-top" alt="Article Image 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Implementing CI/CD in Your Testing Strategy</h5>
-                        <p class="card-text">Learn how Continuous Integration and Continuous Deployment (CI/CD) can transform your testing strategy and improve software quality.</p>
-                        <a href="#" class="btn btn-secondary">Read More</a>
-                    </div>
+                {% load static %}
+                    <img src="{% static 'assets/CICD_Pipeline.jpg' %}" class="card-img-top" alt="Article Image 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Implementing CI/CD in Your Testing Strategy</h5>
+                            <p class="card-text">Learn how Continuous Integration and Continuous Deployment (CI/CD) can transform your testing strategy and improve software quality.</p>
+                            <a href="#" class="btn btn-secondary">Read More</a>
+                        </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
-                    <img src="path/to/image3.jpg" class="card-img-top" alt="Article Image 3">
+                    <img src="{% static 'assets/reporting.jpg' %}" class="card-img-top" alt="Article Image 3">
                     <div class="card-body">
                         <h5 class="card-title">Automated Test Reporting and Analytics</h5>
                         <p class="card-text">Discover how automated test reporting and analytics can provide real-time insights and improve decision-making.</p>
@@ -49,7 +53,7 @@
             </div>
             <div class="col-md-6 mb-4">
                 <div class="card h-100">
-                    <img src="path/to/image4.jpg" class="card-img-top" alt="Article Image 4">
+                    <img src="{% static 'assets/culture.jpg' %}"  class="card-img-top" alt="Article Image 4">
                     <div class="card-body">
                         <h5 class="card-title">Creating a Culture of Quality</h5>
                         <p class="card-text">Learn how to foster a culture of quality within your organization to achieve continuous improvement and excellence.</p>

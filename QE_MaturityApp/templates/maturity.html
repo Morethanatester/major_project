@@ -283,13 +283,17 @@
     });
 
     function updateValues() {
-        // Calculate the new savings and time saved by multiplying the original values by the slider value
-        var newSavings = originalSavings * slider.value;
-        var newTimeSaved = originalTimeSaved * slider.value;
+        // Check if originalSavings and originalTimeSaved are not NaN
+        if (!isNaN(originalSavings) && !isNaN(originalTimeSaved)) {
+            // Calculate the new savings and time saved by multiplying the original values by the slider value
+            var newSavings = originalSavings * slider.value;
+            var newTimeSaved = originalTimeSaved * slider.value;
 
-        // Update the savings, time saved, and display elements with the new values
-        savingsElement.textContent = '£' + newSavings.toFixed(2);
-        timeSavedElement.textContent = newTimeSaved.toFixed(2) + ' days';
+            // Update the savings, time saved, and display elements with the new values
+            savingsElement.textContent = '£' + newSavings.toFixed(2);
+            timeSavedElement.textContent = newTimeSaved.toFixed(2) + ' days';
+        }
+
         display.textContent = slider.value;
     }
 </script>
