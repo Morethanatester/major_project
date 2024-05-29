@@ -28,6 +28,12 @@
                 <h5 class="card-title">£{{ request.session.cost_per_test }}</h5>
             </div>
         </div>
+    </div>
+
+    <!-- Line break -->
+    <hr>
+
+    <div class="d-flex justify-content-center">
         <div class="card mb-3 mx-2" style="width: 18rem;">
             <div class="card-header">New Total Cost</div>
             <div class="card-body">
@@ -40,11 +46,47 @@
                 <h5 class="card-title">£{{ new_cost_per_test }}</h5>
             </div>
         </div>
+        <div class="card mb-3 mx-2" style="width: 18rem;">
+            <div class="card-header">Time Saved</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ time_saved }} days</h5>
+            </div>
+        </div>
+        <div class="card mb-3 mx-2" style="width: 18rem;">
+            <div class="card-header">Savings</div>
+            <div class="card-body">
+                <h5 class="card-title">£{{ cost_savings }}</h5>
+            </div>
+        </div>
     </div>
+
+    <p>Maturity level: {{ total_maturity_level }}</p>
+
+
+    <label for="num_executions">Number of test executions:</label>
+    <button id="decrease" class="slider-button">-</button>
+    <input type="range" id="num_executions" name="num_executions" min="1" max="10" value="1">
+    <button id="increase" class="slider-button">+</button>
+    <p id="num_executions_display">1</p>
+    
+    <style>
+    .slider-button {
+        background-color: transparent;
+        border: none;
+        color: #000;
+        font-size: 1.2em;
+        padding: 0;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+    .slider-button:focus {
+        outline: none;
+    }
+    </style>
 
     <!-- Line break -->
     <hr>
-    <p class="text-center">ADD OVERALL MATURITY LEVEL ONCE COMPLETED</p>
+
 
     <p class="text-center">The following questions will help you assess your maturity in Quality Engineering.</p>
 
@@ -201,4 +243,54 @@
     }
 </script>
 
+<script>
+    // Get the slider element
+    var slider = document.getElementById('num_executions');
+    // Get the display element for the slider value
+    var display = document.getElementById('num_executions_display');
+    // Get the decrease and increase button elements
+    var decreaseButton = document.getElementById('decrease');
+    var increaseButton = document.getElementById('increase');
+
+    // Get all card-header elements and convert the NodeList to an array
+    var cardHeaders = Array.from(document.querySelectorAll('.card-header'));
+    // Find the savings and time saved elements by their preceding card-header text
+    var savingsElement = cardHeaders.find(el => el.textContent === 'Savings').nextElementSibling.querySelector('.card-title');
+    var timeSavedElement = cardHeaders.find(el => el.textContent === 'Time Saved').nextElementSibling.querySelector('.card-title');
+
+    // Get the original savings and time saved values, removing the currency and time units and converting to numbers
+    var originalSavings = parseFloat(savingsElement.textContent.replace('£', ''));
+    var originalTimeSaved = parseFloat(timeSavedElement.textContent.replace(' days', ''));
+
+    // Add an event listener to the slider to call updateValues when the slider value changes
+    slider.addEventListener('input', updateValues);
+
+    // Add event listeners to the decrease and increase buttons to adjust the slider value and call updateValues when clicked
+    decreaseButton.addEventListener('click', function() {
+        // Only decrease the slider value if it's greater than 1
+        if (slider.value > 1) {
+            slider.value--;
+            updateValues();
+        }
+    });
+
+    increaseButton.addEventListener('click', function() {
+        // Only increase the slider value if it's less than 100
+        if (slider.value < 100) {
+            slider.value++;
+            updateValues();
+        }
+    });
+
+    function updateValues() {
+        // Calculate the new savings and time saved by multiplying the original values by the slider value
+        var newSavings = originalSavings * slider.value;
+        var newTimeSaved = originalTimeSaved * slider.value;
+
+        // Update the savings, time saved, and display elements with the new values
+        savingsElement.textContent = '£' + newSavings.toFixed(2);
+        timeSavedElement.textContent = newTimeSaved.toFixed(2) + ' days';
+        display.textContent = slider.value;
+    }
+</script>
 {% endblock %}

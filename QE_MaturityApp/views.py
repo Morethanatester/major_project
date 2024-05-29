@@ -33,6 +33,7 @@ def baseline(request):
                 # Store results in session variables
                 request.session['total_cost'] = total_cost
                 request.session['cost_per_test'] = cost_per_test
+                request.session['total_execution_time_days'] = total_execution_time_days  # Store total_execution_time_days in session
         else:
             form.add_error(None, 'All values must be greater than or equal to 0.')
     else:
@@ -64,12 +65,23 @@ def maturity_assessment(request):
         if form.is_valid():
             print('Form cleaned data:', form.cleaned_data)  # Print form.cleaned_data
             # Process the form data and calculate new scores
-            new_total_cost, new_cost_per_test = calculate_new_scores(request, form.cleaned_data)  # Switched order of arguments
+            new_total_cost, new_cost_per_test, cost_savings, time_saved, total_maturity_level  = calculate_new_scores(request, form.cleaned_data)  # Switched order of arguments
             # Store results in session variables
             request.session['new_total_cost'] = new_total_cost
             request.session['new_cost_per_test'] = new_cost_per_test
+            request.session['new_total_cost'] = new_total_cost
+            request.session['new_cost_per_test'] = new_cost_per_test
+            request.session['cost_savings'] = cost_savings
+            request.session['time_saved'] = time_saved
             # Pass the new scores to the template
-            return render(request, 'maturity.html', {'new_total_cost': new_total_cost, 'new_cost_per_test': new_cost_per_test})
+                # Pass the new scores and total_maturity_level to the template
+            return render(request, 'maturity.html', {
+                'new_total_cost': new_total_cost, 
+                'new_cost_per_test': new_cost_per_test, 
+                'cost_savings': cost_savings, 
+                'time_saved': time_saved,
+                'total_maturity_level': total_maturity_level  # Add this line
+            })
         else:
             print('Form errors:', form.errors)
             return render(request, 'maturity.html', {'form': form})  # Pass the form with errors back to the template
@@ -79,27 +91,24 @@ def maturity_assessment(request):
 
 def calculate_new_scores(request, form_data):
     COST_REDUCTION_PERCENTAGES = {
-        range(0, 15): 1.0,  # No Maturity = 100% of original cost
-        range(15, 30): 0.8,  # Low Maturity = 80% of original cost
-        range(30, 45): 0.6,  # Good Maturity = 60% of original cost
-        range(45, 61): 0.4   # High Maturity/Continuous Maturity = 40% of original cost
+        range(0, 15): (1.0, "No Maturity"),  # No Maturity = 100% of original cost
+        range(15, 29): (0.8, "Low Maturity"),  # Low Maturity = 80% of original cost
+        range(29, 39): (0.6, "Good Maturity"),  # Good Maturity = 60% of original cost
+        range(39, 61): (0.4, "High Maturity")   # High Maturity/Continuous Maturity = 40% of original cost
     }
     
     # Calculate total maturity level by summing up the answers to all 14 questions
     total_maturity_level = sum(int(form_data.get(f'question_{i}', 0)) for i in range(1, 15))
-    
-    # Map the total maturity level to a cost reduction percentage
-    for range_, percentage in COST_REDUCTION_PERCENTAGES.items():
+
+    # Map the total maturity level to a cost reduction percentage and a maturity level description
+    for range_, (percentage, maturity_level) in COST_REDUCTION_PERCENTAGES.items():
         if total_maturity_level in range_:
             cost_reduction_percentage = percentage
             break
     else:
         cost_reduction_percentage = 1.0  # Default to 100% if total_maturity_level is not in any range
-    
-    # For debugging purposes, print the calculated values
-    print("Total Maturity Level:", total_maturity_level)
-    print("Cost Reduction Percentage:", cost_reduction_percentage)
-    
+        maturity_level = "No Maturity"
+
     # Assuming original total cost and cost per test are retrieved from session
     original_total_cost = request.session.get('total_cost', 0)
     original_cost_per_test = request.session.get('cost_per_test', 0)
@@ -107,11 +116,16 @@ def calculate_new_scores(request, form_data):
     new_total_cost = round(original_total_cost * cost_reduction_percentage, 2)
     new_cost_per_test = round(original_cost_per_test * cost_reduction_percentage, 2)
     
-    # For debugging purposes, print the new scores
-    print("New Total Cost:", new_total_cost)
-    print("New Cost Per Test:", new_cost_per_test)
+    # Retrieve the number of test executions from the form data
+    num_executions = int(form_data.get('num_executions', 1))
+
+    # Calculate the cost savings and time saved
+    cost_savings = (original_total_cost - new_total_cost) * num_executions
+    total_execution_time_days = request.session.get('total_execution_time_days', 0)
+    time_saved = total_execution_time_days * (1 - cost_reduction_percentage) * num_executions
     
-    return new_total_cost, new_cost_per_test
+    return new_total_cost, new_cost_per_test, cost_savings, time_saved, maturity_level
+
 def maturity(request):
     print('maturity function called')
     print('Request method:', request.method)
