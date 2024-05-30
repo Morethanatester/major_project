@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <p>Maturity level: {{ total_maturity_level }}</p>
+    <h4>Maturity level: {{ total_maturity_level }}</h4>
 
 
     <label for="num_executions">Number of test executions:</label>
@@ -88,11 +88,18 @@
     <hr>
 
 
-    <p class="text-center">The following questions will help you assess your maturity in Quality Engineering.</p>
-
+    <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+        <p class="text-center" style="margin: 0; padding: 0; line-height: 1.5; font-size: 16px;">The following questions will help you access aspirational maturity in Quality Engineering. For Guidance, select</p>
+        <a href="{% url 'QEMaturity' %}" class="btn btn-secondary" style="background: none; border: none; color: #000; text-decoration: underline; margin-left: 10px; padding: 0;">More Info</a>
+    </div>
+    
+    <p class="text-center" style="margin: 0; padding: 0; line-height: 1.5; font-size: 16px;">Any cost savings will be displayed in the boxes above. The more mature the maturity level, the bigger the saving. Use the slider bar to increase the total number of times your tests are executed. This will demonstrate the enduring cost savings of increased maturity.</p>
 
     <!-- Maturity questions -->
+    <p></p>
     <h2 class="text-center">Maturity Assessment Questions</h2>
+
+
     <form method="POST" action="{% url 'maturity_assessment' %}">
         {% csrf_token %}
         <table class="table">
@@ -209,13 +216,10 @@
         </table>
         <div class="text-center">
             <button type="submit" class="btn btn-secondary">Submit</button>
+            <a href="#" onclick="history.back()" class="btn btn-secondary">Back</a>
         </div>
         <p></p>
 
-        <div class="back-button">
-            <a href="#" onclick="history.back()" class="btn btn-secondary">Back</a>
-            <a href="{% url 'QEMaturity' %}" class="btn btn-secondary">More Info</a>
-        </div>
     </form>
 </div>
 
