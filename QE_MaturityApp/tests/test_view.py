@@ -10,22 +10,27 @@ class ViewTests(TestCase):
         self.client = Client()
 
     # Functional Tests
+
+    # Test if home page is accessible and uses the correct template
     def test_home_page(self):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home.html')
 
+    # Test if QEMaturity page is accessible and uses the correct template
     def test_QEMaturity_page(self):
         response = self.client.get(reverse('QEMaturity'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'QEMaturity.html')
 
+    # Test if baseline page is accessible via GET request and uses the correct form
     def test_baseline_page_get(self):
         response = self.client.get(reverse('baseline'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'assessment.html')
         self.assertIsInstance(response.context['form'], BaselineForm)
 
+    # Test if baseline page is accessible via POST request and returns the correct context
     def test_baseline_page_post(self):
         form_data = {
             'total_resource_permanent': 5,
@@ -39,14 +44,16 @@ class ViewTests(TestCase):
         self.assertIn('total_cost', response.context)
         self.assertIn('cost_per_test', response.context)
 
+    # Test if maturity assessment page is accessible via GET request and uses the correct form
     def test_maturity_assessment_page_get(self):
         response = self.client.get(reverse('maturity_assessment'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'maturity.html')
         self.assertIsInstance(response.context['form'], AssessmentForm)
 
+    # Test if maturity assessment page is accessible via POST request and returns the correct context
     def test_maturity_assessment_page_post(self):
-        # First, set up the session with initial baseline data
+        # set up the session with initial baseline data
         session = self.client.session
         session['total_cost'] = 10000
         session['cost_per_test'] = 100
@@ -63,17 +70,21 @@ class ViewTests(TestCase):
         self.assertIn('cost_savings', response.context)
         self.assertIn('time_saved', response.context)
 
+    # Test if blog1 page is accessible and uses the correct template
     def test_blog1_page(self):
         response = self.client.get(reverse('blog1'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog1.html')
 
+    # Test if blog2 page is accessible and uses the correct template
     def test_blog2_page(self):
         response = self.client.get(reverse('blog2'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog2.html')
 
     # Unit Tests for Helper Functions
+
+    # Test if calculate_total_cost function returns the correct total cost
     def test_calculate_total_cost(self):
         total_resource_permanent = 5
         total_resource_contractor = 3
@@ -83,6 +94,7 @@ class ViewTests(TestCase):
         expected_total_cost = (5 * 454 + 3 * 1400) * 10
         self.assertEqual(calculate_total_cost(total_resource_permanent, total_resource_contractor, total_test_cases, total_execution_time_days), expected_total_cost)
 
+    # Test if calculate_new_scores function returns the correct values for no maturity
     def test_calculate_new_scores_no_maturity(self):
         request = self.client.request().wsgi_request
         request.session['total_cost'] = 10000
@@ -100,6 +112,7 @@ class ViewTests(TestCase):
         self.assertEqual(time_saved, 0)
         self.assertEqual(maturity_level, 'No Maturity')
 
+    # Test if calculate_new_scores function returns the correct values for high maturity
     def test_calculate_new_scores_high_maturity(self):
         request = self.client.request().wsgi_request
         request.session['total_cost'] = 10000
@@ -112,12 +125,6 @@ class ViewTests(TestCase):
         
         new_total_cost, new_cost_per_test, cost_savings, time_saved, maturity_level = calculate_new_scores(request, form_data)
         
-        print(f"New Total Cost: {new_total_cost}")
-        print(f"New Cost Per Test: {new_cost_per_test}")
-        print(f"Cost Savings: {cost_savings}")
-        print(f"Time Saved: {time_saved}")
-        print(f"Maturity Level: {maturity_level}")
-        
         self.assertEqual(new_total_cost, 4000)  # 40% of original cost
         self.assertEqual(new_cost_per_test, 40)  # 40% of original cost per test
         self.assertEqual(cost_savings, 30000)  # 6000 * 5
@@ -125,8 +132,10 @@ class ViewTests(TestCase):
         self.assertEqual(maturity_level, 'High Maturity')
 
     # Non-functional Tests
+
+    # Test if baseline page is secure against SQL Injection
     def test_baseline_page_post_security(self):
-        # Test for SQL Injection (this is a simple example, for real-world cases use more sophisticated methods)
+        # Test for SQL Injection in total_resource_permanent field 
         form_data = {
             'total_resource_permanent': "1; DROP TABLE users;",
             'total_resource_contractor': 3,
@@ -136,6 +145,7 @@ class ViewTests(TestCase):
         response = self.client.post(reverse('baseline'), data=form_data)
         self.assertNotEqual(response.status_code, 500)  # Should not result in a server error
 
+    # Test if baseline page can handle multiple requests within a reasonable time
     def test_performance_baseline_page(self):
         start_time = time.time()
         for _ in range(100):
