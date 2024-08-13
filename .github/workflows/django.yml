@@ -17,6 +17,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: List Available Python Versions
+      run: |
+        curl -s https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json | jq
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
